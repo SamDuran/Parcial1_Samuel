@@ -1,7 +1,6 @@
 buildscript {
     ext {
         compose_ui_version = '1.2.1'
-        compose_compiler = ''
         hilt_version = '2.38.1'
         room_version = '2.4.2'
         lifecycle_runtime='2.3.1'
