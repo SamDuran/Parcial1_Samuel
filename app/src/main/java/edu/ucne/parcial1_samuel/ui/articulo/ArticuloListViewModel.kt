@@ -1,4 +1,4 @@
-package edu.ucne.parcial1_samuel.ui.entity
+package edu.ucne.parcial1_samuel.ui.articulo
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -10,14 +10,14 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
-data class entityListUiState(
+data class ArticuloListUiState(
     val list: List<Boolean> = emptyList()
 )
 @HiltViewModel
-class entityListViewModel @Inject constructor(
+class ArticuloListViewModel @Inject constructor(
 
 ) : ViewModel() {
-    var uiState by mutableStateOf(entityListUiState())
+    var uiState by mutableStateOf(ArticuloListUiState())
     private set
 
     init {

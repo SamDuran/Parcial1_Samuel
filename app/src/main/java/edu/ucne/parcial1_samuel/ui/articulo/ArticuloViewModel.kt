@@ -1,11 +1,11 @@
-package edu.ucne.parcial1_samuel.ui.entity
+package edu.ucne.parcial1_samuel.ui.articulo
 
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class entityViewModel @Inject constructor(
+class ArticuloViewModel @Inject constructor(
 
 ): ViewModel() {
 

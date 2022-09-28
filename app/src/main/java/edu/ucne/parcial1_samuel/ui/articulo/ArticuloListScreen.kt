@@ -1,4 +1,4 @@
-package edu.ucne.parcial1_samuel.ui.entity
+package edu.ucne.parcial1_samuel.ui.articulo
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
@@ -8,14 +8,13 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun entityListScreen(
+fun ArticuloListScreen(
     newEntityClick: () -> Unit,
-    viewModel: entityListViewModel = hiltViewModel(),
+    viewModel: ArticuloListViewModel = hiltViewModel(),
 ) {
     Scaffold(
         topBar = {
