@@ -17,5 +17,5 @@ interface ArticuloDao {
     suspend fun find(id:Int) : Articulo
 
     @Query("SELECT * FROM Articulos")
-    suspend fun getArticulos() : Flow<List<Articulo>>
+    fun getArticulos() : Flow<List<Articulo>>
 }
