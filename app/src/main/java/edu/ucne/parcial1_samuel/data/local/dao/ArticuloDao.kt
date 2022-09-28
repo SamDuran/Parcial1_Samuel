@@ -2,6 +2,7 @@ package edu.ucne.parcial1_samuel.data.local.dao
 
 import androidx.room.*
 import edu.ucne.parcial1_samuel.data.local.entities.Articulo
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface ArticuloDao {
@@ -16,5 +17,5 @@ interface ArticuloDao {
     suspend fun find(id:Int) : Articulo
 
     @Query("SELECT * FROM Articulos")
-    suspend fun getArticulos() : List<Articulo>
+    suspend fun getArticulos() : Flow<List<Articulo>>
 }
