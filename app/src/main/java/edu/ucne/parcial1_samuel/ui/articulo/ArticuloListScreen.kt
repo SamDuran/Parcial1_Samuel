@@ -8,7 +8,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import edu.ucne.parcial1_samuel.data.local.entities.Articulo
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -19,11 +22,11 @@ fun ArticuloListScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("entities") }
+                title = { Text("Articulos") }
             )
         },
         floatingActionButton = {
-            FloatingActionButton(onClick = { /*TODO*/ }) {
+            FloatingActionButton(onClick = newEntityClick) {
                 Icon(
                     imageVector = Icons.Default.Add,
                     contentDescription = null
@@ -31,39 +34,45 @@ fun ArticuloListScreen(
             }
         }
     ) {
-        //val lista = viewModel.entity.collectAsState()
+        val lista = viewModel.uiState.articulos
         LazyColumn(
             modifier = Modifier.fillMaxSize()
         ) {
-            /*items(lista.value) { entity ->
-                EntityRow(entity)
-            }*/
+            lista.forEach{
+                item{
+                    ArticuloRow(articulo = it)
+                }
+            }
         }
     }
 }
 
-//@Composable
-//fun entityRow(entity : Entity) {
-//    Column(
-//        modifier = Modifier.fillMaxWidth().padding(horizontal = 10.dp)
-//    ){
-//        Text(
-//            text=entity.campo1,
-//            style = MaterialTheme.typography.h5,
-//            modifier = Modifier.padding(horizontal = 5.dp)
-//        )
-//        Row(
-//            modifier = Modifier.fillMaxWidth(),
-//            horizontalArrangement = Arrangement.SpaceBetween
-//        ) {
-//            Text(
-//                text = entity.campo2,
-//                modifier = Modifier.padding(horizontal = 5.dp)
-//            )
-//            Text(
-//                text = entity.campo3,
-//                modifier = Modifier.padding(horizontal = 5.dp)
-//            )
-//        }
-//    }
-//}
+@Composable
+fun ArticuloRow(articulo: Articulo) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 10.dp)
+    ){
+        Text(
+            text=articulo.descripcion,
+            style = MaterialTheme.typography.h5,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.padding(horizontal = 5.dp)
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Text(
+                text = "Marca: ${articulo.marca}",
+                modifier = Modifier.padding(horizontal = 5.dp)
+            )
+
+            Text(
+                text ="Existencia: ${articulo.existencia}" ,
+                modifier = Modifier.padding(horizontal = 5.dp)
+            )
+        }
+    }
+}
