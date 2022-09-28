@@ -13,8 +13,8 @@ interface ArticuloDao {
     suspend fun delete(articulo: Articulo)
 
     @Query("SELECT * FROM Articulos WHERE articuloId = :id")
-    suspend fun find(id:Int)
+    suspend fun find(id:Int) : Articulo
 
     @Query("SELECT * FROM Articulos")
-    suspend fun getArticulos()
+    suspend fun getArticulos() : List<Articulo>
 }
