@@ -8,8 +8,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
 import edu.ucne.parcial1_samuel.ui.ScreensController
-import edu.ucne.parcial1_samuel.ui.articulo.entityListScreen
-import edu.ucne.parcial1_samuel.ui.articulo.entityScreen
+import edu.ucne.parcial1_samuel.ui.articulo.ArticuloListScreen
+import edu.ucne.parcial1_samuel.ui.articulo.ArticuloScreen
 import edu.ucne.parcial1_samuel.ui.theme.Parcial1_SamuelTheme
 
 @AndroidEntryPoint
@@ -21,19 +21,19 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 NavHost(
                     navController = navController,
-                    startDestination = ScreensController.entityListScreen.route
+                    startDestination = ScreensController.ArticuloListScreen.route
                 ) {
-                    composable(ScreensController.entityListScreen.route) {
-                        entityListScreen(
+                    composable(ScreensController.ArticuloListScreen.route) {
+                        ArticuloListScreen(
                             newEntityClick = {
                                 navController.navigate(
-                                    ScreensController.entityScreen.route
+                                    ScreensController.ArticuloScreen.route
                                 )
                             }
                         )
                     }
-                    composable(ScreensController.entityScreen.route) {
-                        entityScreen(onSave = { navController.navigateUp() })
+                    composable(ScreensController.ArticuloScreen.route) {
+                        ArticuloScreen(onSave = { navController.navigateUp() })
                     }
                 }
             }
