@@ -6,23 +6,27 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import edu.ucne.parcial1_samuel.data.local.entities.Articulo
+import edu.ucne.parcial1_samuel.data.repository.ArticuloRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 data class ArticuloListUiState(
-    val list: List<Boolean> = emptyList()
+    val articulos: List<Articulo> = emptyList()
 )
 @HiltViewModel
 class ArticuloListViewModel @Inject constructor(
-
+    private val repository: ArticuloRepository
 ) : ViewModel() {
     var uiState by mutableStateOf(ArticuloListUiState())
     private set
 
     init {
         viewModelScope.launch {
-            //llamar al repository.GetList
+            repository.getArticulos().collect() {
+                uiState = uiState.copy(articulos = it)
+            }
         }
     }
 }
