@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName="Articulos")
 data class Articulo(
     @PrimaryKey(autoGenerate = true)
-    val id:Int,
-    val campo1 : String,
-    val campo2 : String,
-    val campo3 : Double
+    val articuloId:Int,
+    val descripcion : String,
+    val marca : String,
+    val existencia : Double
 )
