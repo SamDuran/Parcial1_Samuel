@@ -2,12 +2,12 @@ package edu.ucne.parcial1_samuel.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import edu.ucne.parcial1_samuel.data.local.entities.entity
+import edu.ucne.parcial1_samuel.data.local.entities.Articulo
 
 @Database(
-    entities = [entity::class],
+    entities = [Articulo::class],
     exportSchema = false,
-    version =1
+    version =2
 )
 abstract class AppDataBase : RoomDatabase() {
     //daos
