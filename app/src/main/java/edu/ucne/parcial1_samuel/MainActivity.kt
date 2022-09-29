@@ -3,9 +3,11 @@ package edu.ucne.parcial1_samuel
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import dagger.hilt.android.AndroidEntryPoint
 import edu.ucne.parcial1_samuel.ui.ScreensController
 import edu.ucne.parcial1_samuel.ui.articulo.ArticuloListScreen
@@ -27,13 +29,23 @@ class MainActivity : ComponentActivity() {
                         ArticuloListScreen(
                             newEntityClick = {
                                 navController.navigate(
-                                    ScreensController.ArticuloScreen.route
+                                    ScreensController.ArticuloScreen.route+ "/0"
                                 )
                             }
-                        )
+                        ){
+                            navController.navigate(
+                                ScreensController.ArticuloScreen.route+ "/$it"
+                            )
+                        }
                     }
-                    composable(ScreensController.ArticuloScreen.route) {
-                        ArticuloScreen(onSave = { navController.navigateUp() })
+                    composable(ScreensController.ArticuloScreen.route+"/{id}",
+                        arguments = listOf(navArgument("id"){type = NavType.IntType})
+                    ) {
+                        val id = it.arguments?.getInt("id") ?: 0
+                        ArticuloScreen(
+                            id= id,
+                            onSave = { navController.navigateUp() }
+                        )
                     }
                 }
             }
