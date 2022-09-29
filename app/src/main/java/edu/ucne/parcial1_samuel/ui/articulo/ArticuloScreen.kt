@@ -10,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -18,10 +19,19 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun ArticuloScreen(
+    id: Int = 0,
     onSave: () -> Unit,
-    viewModel: ArticuloViewModel = hiltViewModel(),
+    viewModel: ArticuloViewModel = hiltViewModel()
 ) {
-    var canSave by remember { mutableStateOf(false) }
+
+    remember(id){
+        viewModel.findById(id)
+        0
+    }
+    var existenciaError: String? = null
+    var marcaError: String? = null
+    var descripcionError: String? = null
+
 
     Scaffold(
         topBar = {
@@ -29,7 +39,9 @@ fun ArticuloScreen(
         },
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                if(canSave)
+                if(descripcionError == null
+                    && marcaError == null
+                    && existenciaError == null)
                 {
                     viewModel.save()
                     onSave()
@@ -47,7 +59,7 @@ fun ArticuloScreen(
             modifier = modifier
         ) {
 
-            var descripcionError: String? = null
+
             OutlinedTextField(
                 value = viewModel.uiState.descripcion,
                 label = {Text("Descripcion")},
@@ -61,9 +73,9 @@ fun ArticuloScreen(
                 },
                 isError = descripcionError != null
             )
-            descripcionError?.let { Text(text = it, color = MaterialTheme.colors.onError) }
+            if(descripcionError!=null) Text(text = descripcionError!!, color = Color.Red)
 
-            var marcaError: String? = null
+
             OutlinedTextField(
                 value = viewModel.uiState.marca,
                 label = {Text("Marca")},
@@ -77,10 +89,10 @@ fun ArticuloScreen(
                 },
                 isError = marcaError != null
             )
-            marcaError?.let { Text(text = it, color = MaterialTheme.colors.onError) }
+            if(marcaError!=null) Text(text = marcaError!!,color = Color.Red)
 
 
-            var existenciaError: String? = null
+
             OutlinedTextField(
                 value = viewModel.uiState.existencia,
                 label = {Text("Existencia")},
@@ -95,17 +107,15 @@ fun ArticuloScreen(
                 },
                 isError = existenciaError != null
             )
-            existenciaError?.let { Text(text = it, color = MaterialTheme.colors.onError) }
+            if(existenciaError!= null) Text(text =existenciaError!!, color = Color.Red)
 
-            canSave = descripcionError == null
-                    && marcaError == null
-                    && existenciaError == null
+
         }
     }
 }
 
 private fun getDescripcionError(descripcion: String): String? {
-    return if (descripcion.isBlank()) "*Ingrese una descripción valida*" else null
+    return if (descripcion.isBlank()|| descripcion.length<2) "*Ingrese una descripción valida*" else null
 }
 
 private fun getMarcaError(marca: String): String? {
