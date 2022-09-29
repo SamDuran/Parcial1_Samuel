@@ -1,6 +1,7 @@
 package edu.ucne.parcial1_samuel.ui.articulo
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.*
@@ -18,6 +19,7 @@ import edu.ucne.parcial1_samuel.data.local.entities.Articulo
 fun ArticuloListScreen(
     newEntityClick: () -> Unit,
     viewModel: ArticuloListViewModel = hiltViewModel(),
+    onItemClick: (Int) -> Unit,
 ) {
     Scaffold(
         topBar = {
@@ -40,7 +42,7 @@ fun ArticuloListScreen(
         ) {
             lista.forEach{
                 item{
-                    ArticuloRow(articulo = it)
+                    ArticuloRow(articulo = it, onArticuloClick = onItemClick)
                 }
             }
         }
@@ -48,11 +50,12 @@ fun ArticuloListScreen(
 }
 
 @Composable
-fun ArticuloRow(articulo: Articulo) {
+fun ArticuloRow(articulo: Articulo, onArticuloClick: (Int)->Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(horizontal = 10.dp)
+            .clickable{onArticuloClick(articulo.articuloId)}
     ){
         Text(
             text=articulo.descripcion,
