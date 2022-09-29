@@ -41,7 +41,7 @@ class ArticuloViewModel @Inject constructor(
     }
     fun findById(id:Int) {
         viewModelScope.launch {
-            repository.findById(id).let {
+            repository.findById(id)?.let {
                 uiState = uiState.copy(
                     id = it.articuloId,
                     descripcion =  it.descripcion,
