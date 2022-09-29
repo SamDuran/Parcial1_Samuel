@@ -14,7 +14,7 @@ interface ArticuloDao {
     suspend fun delete(articulo: Articulo)
 
     @Query("SELECT * FROM Articulos WHERE articuloId = :id")
-    suspend fun find(id:Int) : Articulo
+    suspend fun find(id:Int) : Articulo?
 
     @Query("SELECT * FROM Articulos")
     fun getArticulos() : Flow<List<Articulo>>
