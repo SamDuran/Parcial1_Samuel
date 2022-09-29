@@ -39,6 +39,18 @@ class ArticuloViewModel @Inject constructor(
             )
         }
     }
+    fun findById(id:Int) {
+        viewModelScope.launch {
+            repository.findById(id).let {
+                uiState = uiState.copy(
+                    id = it.articuloId,
+                    descripcion =  it.descripcion,
+                    marca = it.marca,
+                    existencia = it.existencia.toString()
+                )
+            }
+        }
+    }
 
     fun setDescripcion(newValue: String) {
         uiState = uiState.copy(descripcion = newValue)
